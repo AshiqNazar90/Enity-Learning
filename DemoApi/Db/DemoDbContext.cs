@@ -65,7 +65,12 @@ namespace DemoApi.Db
                       .WithMany(a => a.Book_Authors)
                       .HasForeignKey(fk => fk.AuthorId);
 
-
+            var photo= modelBuilder.Entity<Photo>();
+            photo.HasKey(x=>x.Id);//pk
+            photo.HasOne(x => x.User)
+                .WithMany(x => x.PhotoList)
+                .HasForeignKey(x => x.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);
         }
